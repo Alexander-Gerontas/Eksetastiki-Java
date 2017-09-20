@@ -1,0 +1,93 @@
+import oracle.jrockit.jfr.JFR;
+
+import javax.swing.*;
+import java.awt.*;
+
+class Window extends JFrame
+{
+    // row 1
+
+    private JPanel row1;
+    private JLabel celciusLabel;
+    private JTextField celsiusField;
+
+    // row 2
+
+    private JPanel row2;
+    private JButton calculateButton;
+    private JButton resetButton;
+
+    // row 3
+
+    private JPanel row3;
+    private JLabel label3;
+    private JTextField fahrField;
+
+    Window()
+    {
+        super("Celsius to Fahrenheit");
+        GridLayout gridLayout = new GridLayout(3, 1);
+        celsiusField = new JTextField(15);
+        FlowLayout flowLayout = new FlowLayout();
+
+        // row1
+
+        celciusLabel = new JLabel("Enter Temperature in Celsius:");
+        row1 = new JPanel();
+        row1.setLayout(flowLayout);
+        row1.add(celciusLabel);
+        row1.add(celsiusField);
+
+        //row2
+
+        row2 = new JPanel();
+        row2.setLayout(flowLayout);
+        calculateButton = new JButton("Calculate");
+        resetButton = new JButton("Reset Values");
+
+        row2.add(calculateButton);
+        row2.add(resetButton);
+
+        // row3
+
+        label3 = new JLabel("Temperature in Fahrenheit :");
+        fahrField = new JTextField(15);
+
+        row3 = new JPanel();
+        row3.setLayout(flowLayout);
+        row3.add(label3);
+        row3.add(fahrField);
+
+        Container pane = getContentPane();
+        getRootPane().setDefaultButton(calculateButton);
+
+        pane.setLayout(gridLayout);
+        pane.add(row1);
+        pane.add(row2);
+        pane.add(row3);
+
+       calculateButton.addActionListener(e ->
+       {
+           Double d = 1.8 * Double.parseDouble(celsiusField.getText()) +32;
+           fahrField.setText( d.toString() );
+       });
+
+       resetButton.addActionListener(e ->
+       {
+           celsiusField.setText("");
+           fahrField.setText("");
+       });
+    }
+}
+
+public class Main
+{
+    public static void main(String[] args)
+    {
+       Window window = new Window();
+       window.pack();
+       window.setVisible(true);
+       window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+}
+
